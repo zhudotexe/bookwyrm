@@ -64,9 +64,16 @@ class Rewards(commands.Cog):
         await asyncio.sleep(seconds)
 
     # ==== commands ====
-    @commands.command(hidden=True)
-    async def debug_notification(self, ctx):
+    @commands.command()
+    async def rewards(self, ctx):
         await self.do_notification(no_ping=True, destination=ctx)
+
+    @commands.command(hidden=True)
+    @commands.is_owner()
+    async def debug_untrack(self, ctx, message_id: int):
+        submission = await RewardSubmission.from_id(self.bot.mdb, message_id)
+        await submission.untrack(self.bot.mdb)
+        await ctx.add_reaction("\U0001f44d")
 
     # ==== doing things ====
     # ---- new submission ----
