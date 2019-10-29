@@ -191,7 +191,7 @@ class Rewards(commands.Cog):
 
             embed.add_field(name=submission.quest_title, value='\n'.join(details))
 
-        await channel.send(content=ping_string, embed=embed)
+        await channel.send(content=ping_string if nums else None, embed=embed)
 
 
 def setup(bot):
