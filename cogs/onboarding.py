@@ -23,7 +23,7 @@ class Onboarding(commands.Cog):
         player_roles = [discord.utils.get(message.guild.roles, name=r) for r in constants.ROLES_TO_ASSIGN]
         filtered_roles = [r for r in player_roles if r and r not in message.author.roles]
         if filtered_roles:
-            await message.author.add_roles(filtered_roles)
+            await message.author.add_roles(*filtered_roles)
             # await message.author.send(constants.ONBOARDING_MESSAGE)
 
 
