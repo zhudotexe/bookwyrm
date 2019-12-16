@@ -30,6 +30,8 @@ class Rewards(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_message_edit(self, payload):
+        if 'content' not in payload.data:
+            return
         await self.update_submission(payload.message_id)
 
     @commands.Cog.listener()
