@@ -1,9 +1,12 @@
 import asyncio
+import datetime
 import re
 
+import dateparser
 import discord
 from dateparser.search import search_dates
 from discord.ext import commands
+from natural import date
 
 from models.games import Game
 from utils import constants
@@ -22,8 +25,21 @@ class Calendar(commands.Cog):
     #         print(await self.parse_title(msg))
     #         await self.parse_time(msg)
 
+    # ==== commands ====
+    @commands.command(aliases=['when'])
+    async def whenis(self, ctx, *, time):
+        """Gets the time until a given time."""
+        the_time = dateparser.parse(time)
+        if the_time is None:
+            return await ctx.send("I don't know what time that is. Try a date like `Aug 3, 12:30pm PST`.")
+        now = datetime.datetime.now(tz=the_time.tzinfo)
+        delta = date.duration(the_time, now=now, precision=2, words=True)
+        await ctx.send(f"{the_time.strftime('%a, %b %d, %I:%M%p %Z').strip()} is {delta}.")
+
+    # ======== code below this line is not used ========
+
     # ==== listeners ====
-    @commands.Cog.listener()
+    # @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
         if message.channel.id not in (constants.DM_QUEST_CHANNEL, constants.PLAYER_QUEST_CHANNEL):
             return
