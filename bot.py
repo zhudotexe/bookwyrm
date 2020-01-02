@@ -11,7 +11,7 @@ PREFIX = "."
 TOKEN = os.getenv("TOKEN")
 MONGO_URL = os.getenv("MONGO_URL")
 MONGO_DB = os.getenv("MONGO_DB", "bookwyrm")
-COGS = ("cogs.rewards", "cogs.onboarding")
+COGS = ("cogs.rewards", "cogs.onboarding", "cogs.calendar")
 
 
 class Bookwyrm(commands.Bot):
