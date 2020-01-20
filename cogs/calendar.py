@@ -33,7 +33,7 @@ class Calendar(commands.Cog):
         if the_time is None:
             return await ctx.send("I don't know what time that is. Try a date like `Aug 3, 12:30pm PST`.")
         now = datetime.datetime.now(tz=the_time.tzinfo)
-        delta = date.duration(the_time, now=now, precision=2, words=True)
+        delta = date.duration(the_time, now=now, precision=2, words=False)
         await ctx.send(f"{the_time.strftime('%a, %b %d, %I:%M%p %Z').strip()} is {delta}.")
 
     # ======== code below this line is not used ========
